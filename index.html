@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaal — Mindi Game Offline</title>
-    <meta name="description" content="Kaal develops Mindi Game Offline — the classic Indian card game for Android. Play anytime, anywhere, no internet needed.">
+    <title>Kaal — Mobile Games & Apps</title>
+    <meta name="description" content="Kaal builds classic card games for mobile. Play Mindi, Scopa, and more — offline, beautiful, and free.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,6 +13,7 @@
         :root {
             --bg-deep: #0a0f0d;
             --bg-card: #141f1a;
+            --bg-card-hover: #1a2922;
             --felt-green: #1a3a2a;
             --accent-gold: #d4a843;
             --accent-gold-light: #f0d078;
@@ -20,8 +21,6 @@
             --text-muted: #9a9688;
             --text-dim: #5c5848;
             --card-white: #f5f0e8;
-            --suit-red: #c0392b;
-            --suit-black: #2c2c2c;
         }
 
         body {
@@ -32,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* --- Background Pattern --- */
         body::before {
             content: '';
             position: fixed;
@@ -63,7 +61,6 @@
             letter-spacing: 0.15em;
             color: var(--accent-gold);
             text-transform: uppercase;
-            position: relative;
         }
 
         .logo-text::after {
@@ -89,166 +86,236 @@
         .hero {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 5rem 2rem 4rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+            padding: 5rem 2rem 2rem;
+            text-align: center;
         }
 
-        .hero-text h1 {
+        .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
+            font-size: 3.4rem;
             font-weight: 900;
             line-height: 1.1;
             color: var(--card-white);
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 span { color: var(--accent-gold); }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* --- Decorative Divider --- */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 3rem 0;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.2), transparent);
+        }
+
+        .divider-icon {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            opacity: 0.6;
+        }
+
+        /* --- Apps Section --- */
+        .apps-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .section-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--card-white);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        /* --- App Card Grid --- */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .app-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 168, 67, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-card:hover {
+            border-color: rgba(212, 168, 67, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Card top — visual band with suit icons */
+        .app-card-visual {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.15;
+            background:
+                radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08), transparent 60%),
+                radial-gradient(circle at 70% 50%, rgba(255,255,255,0.05), transparent 50%);
+        }
+
+        /* Per-app theme colors */
+        .app-card[data-theme="mindi"] .app-card-visual {
+            background: linear-gradient(135deg, #1a3a2a 0%, #245238 50%, #1a3a2a 100%);
+        }
+
+        .app-card[data-theme="scopa"] .app-card-visual {
+            background: linear-gradient(135deg, #2a1a1a 0%, #4a2020 50%, #2a1a1a 100%);
+        }
+
+        /* Default for future apps */
+        .app-card[data-theme="default"] .app-card-visual {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2a2a4a 50%, #1a1a2e 100%);
+        }
+
+        .floating-suit {
+            font-size: 2.8rem;
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+            animation: floatSuit 3s ease-in-out infinite;
+        }
+
+        .floating-suit:nth-child(1) { animation-delay: 0s; }
+        .floating-suit:nth-child(2) { animation-delay: 0.5s; }
+        .floating-suit:nth-child(3) { animation-delay: 1s; }
+        .floating-suit:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes floatSuit {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Card body */
+        .app-card-body {
+            padding: 1.8rem 2rem 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-card-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.8rem;
+            width: fit-content;
+        }
+
+        .badge-android {
+            background: rgba(61, 220, 132, 0.12);
+            color: #3ddc84;
+        }
+
+        .app-card-body h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--card-white);
+            margin-bottom: 0.3rem;
+        }
+
+        .app-card-origin {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.8rem;
+        }
+
+        .app-card-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .app-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
             margin-bottom: 1.5rem;
         }
 
-        .hero-text h1 span {
-            color: var(--accent-gold);
-            display: block;
-        }
-
-        .hero-text p {
+        .app-tag {
+            background: rgba(212, 168, 67, 0.08);
+            border: 1px solid rgba(212, 168, 67, 0.12);
             color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 2.5rem;
-            max-width: 440px;
+            padding: 0.3rem 0.7rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
-        .cta-btn {
+        .play-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
             background: var(--accent-gold);
             color: var(--bg-deep);
-            padding: 1rem 2rem;
+            padding: 0.85rem 1.6rem;
             border-radius: 12px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 24px rgba(212, 168, 67, 0.25);
+            box-shadow: 0 4px 20px rgba(212, 168, 67, 0.2);
+            width: fit-content;
         }
 
-        .cta-btn:hover {
+        .play-btn:hover {
             background: var(--accent-gold-light);
             transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(212, 168, 67, 0.35);
+            box-shadow: 0 8px 28px rgba(212, 168, 67, 0.3);
         }
 
-        .cta-btn svg { width: 22px; height: 22px; }
+        .play-btn svg { width: 18px; height: 18px; }
 
-        /* --- Card Visual --- */
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            min-height: 350px;
-        }
-
-        .card-stack {
-            position: relative;
-            width: 200px;
-            height: 280px;
-        }
-
-        .playing-card {
-            position: absolute;
-            width: 160px;
-            height: 224px;
-            border-radius: 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-            transition: transform 0.5s ease;
-        }
-
-        .playing-card:nth-child(1) {
-            background: var(--card-white);
-            color: var(--suit-red);
-            transform: rotate(-15deg) translate(-30px, 10px);
-            z-index: 1;
-        }
-
-        .playing-card:nth-child(2) {
-            background: var(--card-white);
-            color: var(--suit-black);
-            transform: rotate(5deg) translate(10px, -10px);
-            z-index: 2;
-        }
-
-        .playing-card:nth-child(3) {
-            background: linear-gradient(135deg, var(--felt-green), #245238);
-            color: var(--accent-gold);
-            transform: rotate(-3deg) translate(-10px, -30px);
-            z-index: 3;
-            border: 2px solid var(--accent-gold);
-        }
-
-        .card-suit { font-size: 3rem; line-height: 1; }
-        .card-rank { font-size: 1.8rem; margin-top: 0.25rem; }
-        .card-back-text { font-size: 1.1rem; letter-spacing: 0.2em; text-transform: uppercase; }
-
-        .hero-visual::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(212, 168, 67, 0.12) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        /* --- Features --- */
-        .features {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem 2rem 5rem;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 168, 67, 0.12);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            border-color: rgba(212, 168, 67, 0.3);
-            transform: translateY(-4px);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            color: var(--card-white);
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* --- About Section --- */
+        /* --- About --- */
         .about {
             max-width: 1100px;
             margin: 0 auto;
@@ -283,10 +350,7 @@
             gap: 1rem;
         }
 
-        .footer-left {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-        }
+        .footer-left { color: var(--text-dim); font-size: 0.85rem; }
 
         .footer-contact a {
             color: var(--accent-gold);
@@ -304,24 +368,18 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .hero-text { animation: fadeUp 0.8s ease forwards; }
-        .hero-visual { animation: fadeUp 0.8s 0.2s ease forwards; opacity: 0; animation-fill-mode: forwards; }
-        .features .feature-card:nth-child(1) { animation: fadeUp 0.6s 0.4s ease forwards; opacity: 0; animation-fill-mode: forwards; }
-        .features .feature-card:nth-child(2) { animation: fadeUp 0.6s 0.55s ease forwards; opacity: 0; animation-fill-mode: forwards; }
-        .features .feature-card:nth-child(3) { animation: fadeUp 0.6s 0.7s ease forwards; opacity: 0; animation-fill-mode: forwards; }
+        .hero { animation: fadeUp 0.7s ease forwards; }
+        .app-card:nth-child(1) { animation: fadeUp 0.6s 0.3s ease both; }
+        .app-card:nth-child(2) { animation: fadeUp 0.6s 0.45s ease both; }
+        /* Future cards auto-animate — add nth-child(3), (4), etc. */
 
         /* --- Responsive --- */
         @media (max-width: 768px) {
-            .hero {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 3rem 1.5rem 2rem;
-            }
-            .hero-text h1 { font-size: 2.2rem; }
-            .hero-visual { min-height: 260px; }
-            .features { grid-template-columns: 1fr; }
+            .hero { padding: 3rem 1.5rem 1.5rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .apps-section { padding: 0 1.5rem 3rem; }
+            .apps-grid { grid-template-columns: 1fr; }
             header { padding: 1.5rem; }
-            .card-stack { transform: scale(0.85); }
         }
     </style>
 </head>
@@ -338,51 +396,80 @@
 
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-text">
-            <h1>Play Mindi.<span>Anytime. Offline.</span></h1>
-            <p>
-                The classic Indian trick-taking card game, beautifully crafted for Android.
-                No internet required — just pure Mindi action against smart AI opponents,
-                wherever you are.
-            </p>
-            <a href="https://play.google.com/store/apps/details?id=com.kaal.mindi" target="_blank" class="cta-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                Download on Google Play
-            </a>
-        </div>
-        <div class="hero-visual">
-            <div class="card-stack">
-                <div class="playing-card">
-                    <div class="card-suit">♥</div>
-                    <div class="card-rank">A</div>
-                </div>
-                <div class="playing-card">
-                    <div class="card-suit">♠</div>
-                    <div class="card-rank">K</div>
-                </div>
-                <div class="playing-card">
-                    <div class="card-back-text">Mindi</div>
-                </div>
-            </div>
-        </div>
+        <h1>Classic Card Games,<br><span>Made for Mobile.</span></h1>
+        <p>Kaal brings timeless card games to your phone — beautifully designed, fully offline, and free to play.</p>
     </section>
 
-    <!-- Features -->
-    <section class="features">
-        <div class="feature-card">
-            <div class="feature-icon">📴</div>
-            <h3>100% Offline</h3>
-            <p>No internet connection needed. Play anywhere — on the train, in a waiting room, or at home. Your game, your time.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🃏</div>
-            <h3>Classic Mindi Rules</h3>
-            <p>Authentic trick-taking gameplay faithful to the traditional Indian card game. Bid, strategize, and win hands just like the real thing.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🤖</div>
-            <h3>Smart Opponents</h3>
-            <p>Challenge intelligent computer players that adapt to your strategy. Every game is different, every hand is a new challenge.</p>
+    <div class="divider"><span class="divider-icon">♠ ♥ ♣ ♦</span></div>
+
+    <!-- Apps Section -->
+    <section class="apps-section">
+        <h2 class="section-label">Our Apps</h2>
+        <div class="apps-grid">
+
+            <!--
+            ======================================================
+              APP CARD TEMPLATE — copy this block to add a new app
+            ======================================================
+              1. Copy everything between the APP CARD START/END comments
+              2. Change data-theme to a new color name (or "default")
+              3. Add a matching CSS rule for the new theme if desired
+              4. Update the suits, title, origin, description, tags, link
+            ======================================================
+            -->
+
+            <!-- APP CARD START — Mindi -->
+            <div class="app-card" data-theme="mindi">
+                <div class="app-card-visual">
+                    <span class="floating-suit">♠</span>
+                    <span class="floating-suit">♥</span>
+                    <span class="floating-suit">♣</span>
+                    <span class="floating-suit">♦</span>
+                </div>
+                <div class="app-card-body">
+                    <span class="app-card-badge badge-android">Android</span>
+                    <h3>Mindi Game Offline</h3>
+                    <div class="app-card-origin">Classic Indian Card Game</div>
+                    <p>The beloved Indian trick-taking card game, now on your phone. Play against smartly design opponents anytime — no internet connection needed.</p>
+                    <div class="app-tags">
+                        <span class="app-tag">Offline</span>
+                        <span class="app-tag">Card Game</span>
+                        <span class="app-tag">AI Opponents</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=com.kaal.mindi" target="_blank" class="play-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                        Google Play
+                    </a>
+                </div>
+            </div>
+            <!-- APP CARD END — Mindi -->
+
+            <!-- APP CARD START — Scopa -->
+            <div class="app-card" data-theme="scopa">
+                <div class="app-card-visual">
+                    <span class="floating-suit">🪙</span>
+                    <span class="floating-suit">⚔️</span>
+                    <span class="floating-suit">🏆</span>
+                    <span class="floating-suit">🃏</span>
+                </div>
+                <div class="app-card-body">
+                    <span class="app-card-badge badge-android">Android</span>
+                    <h3>Scopa Master</h3>
+                    <div class="app-card-origin">Classic Italian Card Game</div>
+                    <p>Play the relaxing and amazing Scopa Master game. Enjoy the classic Italian card-game experience with a polished mobile look.</p>
+                    <div class="app-tags">
+                        <span class="app-tag">Offline</span>
+                        <span class="app-tag">Card Game</span>
+                        <span class="app-tag">Italian Classic</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=com.kaal.scopaking" target="_blank" class="play-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                        Google Play
+                    </a>
+                </div>
+            </div>
+            <!-- APP CARD END — Scopa -->
+
         </div>
     </section>
 
@@ -390,18 +477,15 @@
     <section class="about">
         <h2>About Kaal</h2>
         <p>
-            Kaal is an independent app development company dedicated to bringing classic games
-            to mobile. We believe traditional card games like Mindi deserve a high-quality digital
-            experience — simple, beautiful, and fun. We're committed to building apps that respect
-            your time and your device.
+            Kaal is an independent app development company focused on bringing timeless card games
+            to mobile. We believe classic games deserve a high-quality digital experience — simple,
+            beautiful, and free. Every app we build works fully offline and respects your time and your device.
         </p>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-left">
-            &copy; 2025 Kaal. All rights reserved.
-        </div>
+        <div class="footer-left">&copy; 2025 Kaal. All rights reserved.</div>
         <div class="footer-contact">
             Questions or issues? <a href="mailto:kaal.help@gmail.com">kaal.help@gmail.com</a>
         </div>
