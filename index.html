@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kaal — Mobile Games & Apps</title>
-    <meta name="description" content="Kaal builds classic card games for mobile. Play Mindi, Scopa, and more — offline, beautiful, and free.">
+    <meta name="description" content="Kaal builds card games, puzzle games, and productivity apps for Android. Play Mindi, Scopa, Arrow Puzzle, and more — offline, beautiful, and free.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -207,12 +207,19 @@
             font-size: 2rem;
             color: var(--card-white);
             text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
             margin-bottom: 2.5rem;
         }
 
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
 
@@ -234,7 +241,7 @@
         }
 
         .app-card-visual {
-            height: 140px;
+            height: 130px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -261,12 +268,20 @@
             background: linear-gradient(135deg, #2a1a1a 0%, #4a2020 50%, #2a1a1a 100%);
         }
 
-        .app-card[data-theme="default"] .app-card-visual {
-            background: linear-gradient(135deg, #1a1a2e 0%, #2a2a4a 50%, #1a1a2e 100%);
+        .app-card[data-theme="arrow"] .app-card-visual {
+            background: linear-gradient(135deg, #1a1a3a 0%, #2e2060 50%, #1a1a3a 100%);
+        }
+
+        .app-card[data-theme="docsbox"] .app-card-visual {
+            background: linear-gradient(135deg, #1a2a3a 0%, #204a5a 50%, #1a2a3a 100%);
+        }
+
+        .app-card[data-theme="pdfconv"] .app-card-visual {
+            background: linear-gradient(135deg, #2a2a1a 0%, #4a3a20 50%, #2a2a1a 100%);
         }
 
         .floating-suit {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             opacity: 0.7;
             position: relative;
             z-index: 1;
@@ -284,7 +299,7 @@
         }
 
         .app-card-body {
-            padding: 1.8rem 2rem 2rem;
+            padding: 1.6rem 1.8rem 1.8rem;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -306,7 +321,7 @@
 
         .app-card-body h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--card-white);
             margin-bottom: 0.3rem;
@@ -322,9 +337,9 @@
 
         .app-card-body p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             line-height: 1.65;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             flex: 1;
         }
 
@@ -332,7 +347,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .app-tag {
@@ -351,11 +366,11 @@
             gap: 0.6rem;
             background: var(--accent-gold);
             color: var(--bg-deep);
-            padding: 0.85rem 1.6rem;
+            padding: 0.8rem 1.4rem;
             border-radius: 12px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(212, 168, 67, 0.2);
             width: fit-content;
@@ -480,8 +495,11 @@
         }
 
         .hero { animation: fadeUp 0.7s ease forwards; }
-        .app-card:nth-child(1) { animation: fadeUp 0.6s 0.3s ease both; }
-        .app-card:nth-child(2) { animation: fadeUp 0.6s 0.45s ease both; }
+        .app-card:nth-child(1) { animation: fadeUp 0.6s 0.2s ease both; }
+        .app-card:nth-child(2) { animation: fadeUp 0.6s 0.35s ease both; }
+        .app-card:nth-child(3) { animation: fadeUp 0.6s 0.5s ease both; }
+        .app-card:nth-child(4) { animation: fadeUp 0.6s 0.65s ease both; }
+        .app-card:nth-child(5) { animation: fadeUp 0.6s 0.8s ease both; }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
@@ -524,6 +542,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#games">Games</a></li>
+                <li><a href="#apps">Apps</a></li>
                 <li><a href="#contact">Contact Us</a></li>
                 <li><a href="https://sites.google.com/view/cardgamemindikaal/home" target="_blank">Privacy Policy</a></li>
             </ul>
@@ -537,11 +556,11 @@
 
     <!-- Hero -->
     <section class="hero" id="home">
-        <h1>Classic Card Games,<br><span>Made for Mobile.</span></h1>
-        <p>Kaal brings timeless card games to your phone — beautifully designed, fully offline, and free to play.</p>
+        <h1>Games & Apps,<br><span>Crafted for Mobile.</span></h1>
+        <p>Kaal brings classic card games, brain-teasing puzzles, and smart productivity tools to your Android device — beautifully designed and free to use.</p>
         <a href="#games" class="hero-cta">
             <svg viewBox="0 0 16 16"><path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/></svg>
-            View Our Games
+            Explore All
         </a>
     </section>
 
@@ -549,19 +568,11 @@
 
     <!-- Games Section -->
     <section class="apps-section" id="games">
-        <h2 class="section-label">Our Games</h2>
+        <h2 class="section-label">Games</h2>
+        <p class="section-sub">Classic card games and puzzles — offline, polished, and free.</p>
         <div class="apps-grid">
 
-            <!--
-            =====================================================
-              TO ADD A NEW APP:
-              1. Copy everything between APP CARD START and END
-              2. Change data-theme (or use "default")
-              3. Update suits, title, origin, description, tags, link
-            =====================================================
-            -->
-
-            <!-- APP CARD START — Mindi -->
+            <!-- APP CARD — Mindi -->
             <div class="app-card" data-theme="mindi">
                 <div class="app-card-visual">
                     <span class="floating-suit">&#9824;</span>
@@ -573,7 +584,7 @@
                     <span class="app-card-badge">Android</span>
                     <h3>Mindi Game Offline</h3>
                     <div class="app-card-origin">Classic Indian Card Game</div>
-                    <p>The beloved Indian trick-taking card game, now on your phone. Play against smart AI opponents anytime — no internet connection needed.</p>
+                    <p>The beloved Indian trick-taking card game, now on your phone. Play against smart AI opponents with multiple deck and trump variations — no internet needed.</p>
                     <div class="app-tags">
                         <span class="app-tag">Offline</span>
                         <span class="app-tag">Card Game</span>
@@ -585,9 +596,8 @@
                     </a>
                 </div>
             </div>
-            <!-- APP CARD END — Mindi -->
 
-            <!-- APP CARD START — Scopa -->
+            <!-- APP CARD — Scopa -->
             <div class="app-card" data-theme="scopa">
                 <div class="app-card-visual">
                     <span class="floating-suit">&#129689;</span>
@@ -599,7 +609,7 @@
                     <span class="app-card-badge">Android</span>
                     <h3>Scopa Master</h3>
                     <div class="app-card-origin">Classic Italian Card Game</div>
-                    <p>Play the relaxing and amazing Scopa Master game. Enjoy the classic Italian card-game experience with a polished mobile look.</p>
+                    <p>The classic Italian card game with smart AI, daily rewards, custom themes, a lucky spinner, and fun mini games. Beautiful and easy to pick up.</p>
                     <div class="app-tags">
                         <span class="app-tag">Offline</span>
                         <span class="app-tag">Card Game</span>
@@ -611,7 +621,92 @@
                     </a>
                 </div>
             </div>
-            <!-- APP CARD END — Scopa -->
+
+            <!-- APP CARD — Arrow Puzzle -->
+            <div class="app-card" data-theme="arrow">
+                <div class="app-card-visual">
+                    <span class="floating-suit">&#10132;</span>
+                    <span class="floating-suit">&#129504;</span>
+                    <span class="floating-suit">&#10024;</span>
+                    <span class="floating-suit">&#127922;</span>
+                </div>
+                <div class="app-card-body">
+                    <span class="app-card-badge">Android</span>
+                    <h3>Arrow Puzzle</h3>
+                    <div class="app-card-origin">Creation and AI</div>
+                    <p>A brain-teasing puzzle game where you align arrows to solve creative challenges. Powered by clever AI-generated levels for endless replayability.</p>
+                    <div class="app-tags">
+                        <span class="app-tag">Puzzle</span>
+                        <span class="app-tag">Brain Teaser</span>
+                        <span class="app-tag">AI Levels</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=com.kaal.arrowgame" target="_blank" class="play-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                        Google Play
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="divider"><span class="divider-icon">&#128196; &#9998; &#128736;</span></div>
+
+    <!-- Apps Section -->
+    <section class="apps-section" id="apps">
+        <h2 class="section-label">Apps</h2>
+        <p class="section-sub">Productivity tools that get things done — simple and efficient.</p>
+        <div class="apps-grid">
+
+            <!-- APP CARD — DocsBox -->
+            <div class="app-card" data-theme="docsbox">
+                <div class="app-card-visual">
+                    <span class="floating-suit">&#128196;</span>
+                    <span class="floating-suit">&#128270;</span>
+                    <span class="floating-suit">&#9998;</span>
+                    <span class="floating-suit">&#128206;</span>
+                </div>
+                <div class="app-card-body">
+                    <span class="app-card-badge">Android</span>
+                    <h3>DocsBox</h3>
+                    <div class="app-card-origin">PDF Reader & Editor</div>
+                    <p>A lightweight PDF reader and editor with built-in document scanner. Open, annotate, and manage your PDF files on the go.</p>
+                    <div class="app-tags">
+                        <span class="app-tag">PDF Reader</span>
+                        <span class="app-tag">Editor</span>
+                        <span class="app-tag">Scanner</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=com.kaal.docsbox" target="_blank" class="play-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                        Google Play
+                    </a>
+                </div>
+            </div>
+
+            <!-- APP CARD — PDF Converter -->
+            <div class="app-card" data-theme="pdfconv">
+                <div class="app-card-visual">
+                    <span class="floating-suit">&#128462;</span>
+                    <span class="floating-suit">&#8594;</span>
+                    <span class="floating-suit">&#128195;</span>
+                    <span class="floating-suit">&#128260;</span>
+                </div>
+                <div class="app-card-body">
+                    <span class="app-card-badge">Android</span>
+                    <h3>PDF Converter</h3>
+                    <div class="app-card-origin">PDF to Word & More</div>
+                    <p>Convert PDF files to Word documents and other formats quickly and easily. Handle your document conversions right on your phone.</p>
+                    <div class="app-tags">
+                        <span class="app-tag">Converter</span>
+                        <span class="app-tag">PDF to Word</span>
+                        <span class="app-tag">Documents</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=pdf.kaal" target="_blank" class="play-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                        Google Play
+                    </a>
+                </div>
+            </div>
 
         </div>
     </section>
@@ -630,18 +725,19 @@
     <section class="about">
         <h2>About Kaal</h2>
         <p>
-            Kaal is an independent app development company focused on bringing timeless card games
-            to mobile. We believe classic games deserve a high-quality digital experience — simple,
-            beautiful, and free. Every app we build works fully offline and respects your time and your device.
+            Kaal is an independent Android developer focused on classic card games, engaging puzzles,
+            and useful productivity tools. We believe great apps should be simple, well-crafted, and
+            respectful of your time and device. Every game works fully offline, and every app is free to use.
         </p>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-left">&copy; 2025 Kaal. All rights reserved.</div>
+        <div class="footer-left">&copy; 2026 Kaal Apps & Games. All rights reserved.</div>
         <div class="footer-links">
             <a href="#home">Home</a>
             <a href="#games">Games</a>
+            <a href="#apps">Apps</a>
             <a href="#contact">Contact</a>
             <a href="https://sites.google.com/view/cardgamemindikaal/home" target="_blank">Privacy Policy</a>
         </div>
@@ -651,8 +747,8 @@
 
 <script>
     // Mobile menu toggle
-    const toggle = document.getElementById('navToggle');
-    const links = document.getElementById('navLinks');
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
     toggle.addEventListener('click', function() { links.classList.toggle('open'); });
 
     // Close menu on link click (mobile)
