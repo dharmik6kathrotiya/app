@@ -4,777 +4,786 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kaal — Mobile Games & Apps</title>
-    <meta name="description" content="Kaal builds card games, puzzle games, and productivity apps for Android. Play Mindi, Scopa, Arrow Puzzle, and more — offline, beautiful, and free.">
+    <meta name="description" content="Kaal Apps & Games builds card games, party games, puzzles and productivity apps for Android. Mindi, Scopa, Callbreak, Solitaire, Imposter, LogiBot, DocsBox, Khata Manager and more — offline-friendly and free.">
+    <meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f0e13" media="(prefers-color-scheme: dark)">
+    <meta property="og:title" content="Kaal — Mobile Games & Apps">
+    <meta property="og:description" content="12 free Android games and apps, built to work offline and respect your privacy.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235b3df5'/%3E%3Ctext x='32' y='45' font-family='Arial' font-weight='800' font-size='36' text-anchor='middle' fill='white'%3EK%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-deep: #0a0f0d;
-            --bg-card: #141f1a;
-            --felt-green: #1a3a2a;
-            --accent-gold: #d4a843;
-            --accent-gold-light: #f0d078;
-            --accent-gold-dim: rgba(212, 168, 67, 0.15);
-            --text-primary: #e8e4dc;
-            --text-muted: #9a9688;
-            --text-dim: #5c5848;
-            --card-white: #f5f0e8;
-            --nav-bg: #0d1410;
+            --bg: #f6f4ef;
+            --surface: #ffffff;
+            --surface-2: #efece5;
+            --ink: #17151c;
+            --muted: #625e6b;
+            --line: rgba(23, 21, 28, 0.09);
+            --accent: #5b3df5;
+            --accent-2: #ff6b4a;
+            --accent-soft: rgba(91, 61, 245, 0.1);
+            --shadow: 0 1px 2px rgba(23, 21, 28, 0.04), 0 8px 24px rgba(23, 21, 28, 0.06);
+            --shadow-hover: 0 2px 4px rgba(23, 21, 28, 0.05), 0 18px 40px rgba(23, 21, 28, 0.12);
+            --radius: 22px;
+            --display: 'Bricolage Grotesque', system-ui, sans-serif;
+            --body: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            color-scheme: light;
         }
 
-        html { scroll-behavior: smooth; }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0f0e13;
+                --surface: #18171e;
+                --surface-2: #211f29;
+                --ink: #f1eff6;
+                --muted: #a29eae;
+                --line: rgba(255, 255, 255, 0.08);
+                --accent: #8f7bff;
+                --accent-2: #ff8a6e;
+                --accent-soft: rgba(143, 123, 255, 0.14);
+                --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+                --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.35), 0 18px 40px rgba(0, 0, 0, 0.45);
+                color-scheme: dark;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0f0e13;
+            --surface: #18171e;
+            --surface-2: #211f29;
+            --ink: #f1eff6;
+            --muted: #a29eae;
+            --line: rgba(255, 255, 255, 0.08);
+            --accent: #8f7bff;
+            --accent-2: #ff8a6e;
+            --accent-soft: rgba(143, 123, 255, 0.14);
+            --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+            --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.35), 0 18px 40px rgba(0, 0, 0, 0.45);
+            color-scheme: dark;
+        }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 
         body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            min-height: 100vh;
+            font-family: var(--body);
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 0%, rgba(26, 58, 42, 0.6) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 100%, rgba(212, 168, 67, 0.08) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
+        a { color: inherit; }
+        img { display: block; max-width: 100%; }
+        .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 
-        .page { position: relative; z-index: 1; }
-
-        /* ===== NAVBAR ===== */
-        nav {
+        /* ===== NAV ===== */
+        .nav {
             position: sticky;
             top: 0;
-            z-index: 100;
-            background: var(--nav-bg);
-            border-bottom: 1px solid rgba(212, 168, 67, 0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            z-index: 50;
+            background: color-mix(in srgb, var(--bg) 82%, transparent);
+            backdrop-filter: saturate(160%) blur(14px);
+            -webkit-backdrop-filter: saturate(160%) blur(14px);
+            border-bottom: 1px solid var(--line);
         }
 
-        .nav-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+
+        .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; }
+
+        .brand-mark {
+            width: 34px; height: 34px; border-radius: 10px;
+            display: grid; place-items: center;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff; font-size: 1.05rem;
         }
 
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: 0.15em;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            list-style: none;
-        }
+        .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
 
         .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent-gold);
-            background: var(--accent-gold-dim);
-        }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .nav-toggle span {
             display: block;
-            width: 22px;
-            height: 2px;
-            background: var(--accent-gold);
-            margin: 5px 0;
-            border-radius: 2px;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--muted);
+            padding: 8px 14px;
+            border-radius: 999px;
+            transition: color .2s, background .2s;
         }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--ink); background: var(--surface-2); }
+
+        .nav-actions { display: flex; align-items: center; gap: 8px; }
+
+        .icon-btn {
+            width: 40px; height: 40px; border-radius: 999px;
+            display: grid; place-items: center;
+            background: var(--surface); border: 1px solid var(--line);
+            color: var(--ink); cursor: pointer;
+        }
+
+        .icon-btn svg { width: 18px; height: 18px; }
+        .menu-btn { display: none; }
 
         /* ===== HERO ===== */
-        .hero {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 6rem 2rem 3rem;
-            text-align: center;
+        .hero { padding: 72px 0 56px; }
+
+        .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
+
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 14px 6px 8px; border-radius: 999px;
+            background: var(--surface); border: 1px solid var(--line);
+            font-size: 0.85rem; font-weight: 600; color: var(--muted);
+            margin-bottom: 22px;
         }
+
+        .eyebrow b { background: var(--accent); color: #fff; padding: 2px 9px; border-radius: 999px; font-size: 0.75rem; }
 
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.4rem;
-            font-weight: 900;
-            line-height: 1.1;
-            color: var(--card-white);
-            margin-bottom: 1.2rem;
+            font-family: var(--display);
+            font-weight: 800;
+            font-size: clamp(2.5rem, 6vw, 4.4rem);
+            line-height: 1.02;
+            letter-spacing: -0.035em;
+            margin-bottom: 20px;
         }
 
-        .hero h1 span { color: var(--accent-gold); }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            line-height: 1.7;
-            max-width: 580px;
-            margin: 0 auto 2.5rem;
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(100deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text; background-clip: text; color: transparent;
         }
 
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent-gold);
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-decoration: none;
-            padding: 0.75rem 1.8rem;
-            border: 2px solid rgba(212, 168, 67, 0.3);
-            border-radius: 12px;
-            transition: all 0.3s ease;
+        .hero-lead { font-size: 1.15rem; color: var(--muted); max-width: 520px; margin-bottom: 32px; }
+
+        .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 24px; border-radius: 999px;
+            font-weight: 700; font-size: 0.98rem; text-decoration: none;
+            transition: transform .2s, box-shadow .2s, background .2s;
         }
 
-        .hero-cta:hover {
-            background: var(--accent-gold-dim);
-            border-color: var(--accent-gold);
-        }
+        .btn-primary { background: var(--ink); color: var(--bg); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .btn-ghost { background: var(--surface); border: 1px solid var(--line); }
+        .btn-ghost:hover { background: var(--surface-2); }
 
-        .hero-cta svg { width: 16px; height: 16px; fill: currentColor; }
+        .stats { display: flex; gap: 36px; flex-wrap: wrap; }
+        .stat strong { display: block; font-family: var(--display); font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+        .stat span { font-size: 0.88rem; color: var(--muted); }
 
-        /* ===== DIVIDER ===== */
-        .divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1rem 0 3rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.2), transparent);
-        }
-
-        .divider-icon {
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-            opacity: 0.5;
-            letter-spacing: 0.3em;
-        }
-
-        /* ===== APPS SECTION ===== */
-        .apps-section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem 5rem;
-        }
-
-        .section-label {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--card-white);
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-sub {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .apps-grid {
+        /* Icon mosaic */
+        .mosaic {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        /* ===== APP CARD ===== */
-        .app-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 168, 67, 0.1);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .app-card:hover {
-            border-color: rgba(212, 168, 67, 0.3);
-            transform: translateY(-6px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
-        }
-
-        .app-card-visual {
-            height: 130px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-card-visual::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0.15;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            padding: 28px;
+            border-radius: 32px;
             background:
-                radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08), transparent 60%),
-                radial-gradient(circle at 70% 50%, rgba(255,255,255,0.05), transparent 50%);
+                radial-gradient(circle at 15% 10%, var(--accent-soft), transparent 55%),
+                radial-gradient(circle at 90% 90%, color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 55%),
+                var(--surface);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            transform: rotate(-3deg);
         }
 
-        .app-card[data-theme="mindi"] .app-card-visual {
-            background: linear-gradient(135deg, #1a3a2a 0%, #245238 50%, #1a3a2a 100%);
-        }
-
-        .app-card[data-theme="scopa"] .app-card-visual {
-            background: linear-gradient(135deg, #2a1a1a 0%, #4a2020 50%, #2a1a1a 100%);
-        }
-
-        .app-card[data-theme="arrow"] .app-card-visual {
-            background: linear-gradient(135deg, #1a1a3a 0%, #2e2060 50%, #1a1a3a 100%);
-        }
-
-        .app-card[data-theme="docsbox"] .app-card-visual {
-            background: linear-gradient(135deg, #1a2a3a 0%, #204a5a 50%, #1a2a3a 100%);
-        }
-
-        .app-card[data-theme="pdfconv"] .app-card-visual {
-            background: linear-gradient(135deg, #2a2a1a 0%, #4a3a20 50%, #2a2a1a 100%);
-        }
-
-        .floating-suit {
-            font-size: 2.6rem;
-            opacity: 0.7;
+        .m-icon, .icon {
             position: relative;
-            z-index: 1;
-            animation: floatSuit 3s ease-in-out infinite;
+            aspect-ratio: 1;
+            border-radius: 24%;
+            overflow: hidden;
+            display: grid; place-items: center;
+            background: linear-gradient(140deg, hsl(var(--h) 70% 58%), hsl(calc(var(--h) + 35) 75% 42%));
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
         }
 
-        .floating-suit:nth-child(1) { animation-delay: 0s; }
-        .floating-suit:nth-child(2) { animation-delay: 0.5s; }
-        .floating-suit:nth-child(3) { animation-delay: 1s; }
-        .floating-suit:nth-child(4) { animation-delay: 1.5s; }
+        .m-icon { animation: bob 5s ease-in-out infinite; animation-delay: calc(var(--i) * -0.6s); }
+        .m-icon span, .icon-fallback { font-size: 2.1rem; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.2); }
+        .m-icon img, .icon img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
-        @keyframes floatSuit {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+        @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+        /* ===== VALUES ===== */
+        .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-bottom: 72px; }
+
+        .value {
+            display: flex; gap: 14px; align-items: flex-start;
+            padding: 20px 22px; border-radius: var(--radius);
+            background: var(--surface); border: 1px solid var(--line);
         }
 
-        .app-card-body {
-            padding: 1.6rem 1.8rem 1.8rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+        .value-ico { flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+        .value-ico svg { width: 20px; height: 20px; }
+        .value h3 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+        .value p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+
+        /* ===== CATALOG ===== */
+        .catalog-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; }
+
+        .section-title { font-family: var(--display); font-weight: 800; font-size: clamp(1.9rem, 4vw, 2.6rem); letter-spacing: -0.03em; line-height: 1.1; }
+        .section-sub { color: var(--muted); margin-top: 6px; }
+
+        .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+        .chips { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
+
+        .chip {
+            border: 0; background: transparent; cursor: pointer;
+            font: inherit; font-weight: 600; font-size: 0.9rem; color: var(--muted);
+            padding: 8px 16px; border-radius: 999px;
+            transition: background .2s, color .2s;
         }
 
-        .app-card-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.8rem;
-            width: fit-content;
-            background: rgba(61, 220, 132, 0.12);
-            color: #3ddc84;
+        .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+        .chip .count { opacity: .6; margin-left: 4px; font-weight: 500; }
+
+        .search { position: relative; }
+        .search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--muted); pointer-events: none; }
+        .search input {
+            font: inherit; font-size: 0.92rem; color: var(--ink);
+            width: 220px; padding: 10px 16px 10px 38px;
+            border-radius: 999px; border: 1px solid var(--line); background: var(--surface);
+            outline: none; transition: border-color .2s, box-shadow .2s;
+        }
+        .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+
+        .group { margin-bottom: 56px; }
+        .group-label {
+            display: flex; align-items: center; gap: 12px;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+            margin-bottom: 18px;
+        }
+        .group-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+
+        .card {
+            display: flex; flex-direction: column;
+            padding: 22px;
+            border-radius: var(--radius);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            transition: transform .25s ease, box-shadow .25s ease;
         }
 
-        .app-card-body h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--card-white);
-            margin-bottom: 0.3rem;
-        }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+        .card[hidden] { display: none; }
 
-        .app-card-origin {
-            font-size: 0.8rem;
-            color: var(--accent-gold);
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            margin-bottom: 0.8rem;
-        }
+        .card-top { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+        .icon { width: 72px; flex: none; }
+        .icon-fallback { font-size: 1.9rem; }
 
-        .app-card-body p {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            line-height: 1.65;
-            margin-bottom: 1.2rem;
-            flex: 1;
-        }
+        .card h3 { font-family: var(--display); font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; line-height: 1.15; }
+        .card .sub { font-size: 0.88rem; color: var(--muted); margin: 2px 0 6px; }
 
-        .app-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.2rem;
-        }
+        .genre { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
 
-        .app-tag {
-            background: rgba(212, 168, 67, 0.08);
-            border: 1px solid rgba(212, 168, 67, 0.12);
-            color: var(--text-muted);
-            padding: 0.3rem 0.7rem;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
+        .desc { font-size: 0.93rem; color: var(--muted); flex: 1; margin-bottom: 14px; }
 
-        .play-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: var(--accent-gold);
-            color: var(--bg-deep);
-            padding: 0.8rem 1.4rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(212, 168, 67, 0.2);
-            width: fit-content;
-        }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin-bottom: 18px; }
+        .tags li { font-size: 0.76rem; font-weight: 600; padding: 4px 10px; border-radius: 8px; background: var(--surface-2); color: var(--muted); }
 
-        .play-btn:hover {
-            background: var(--accent-gold-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(212, 168, 67, 0.3);
+        .play {
+            display: inline-flex; align-items: center; gap: 10px;
+            align-self: flex-start;
+            padding: 8px 18px 8px 14px; border-radius: 12px;
+            background: var(--ink); color: var(--bg);
+            text-decoration: none; line-height: 1.1;
+            transition: transform .2s, opacity .2s;
         }
+        .play:hover { transform: translateY(-1px); opacity: .9; }
+        .play svg { width: 20px; height: 20px; fill: currentColor; }
+        .play span { font-weight: 700; font-size: 0.98rem; }
+        .play small { display: block; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.08em; opacity: .75; }
 
-        .play-btn svg { width: 18px; height: 18px; }
+        .empty { display: none; text-align: center; padding: 48px 0 72px; color: var(--muted); }
+        .empty.show { display: block; }
 
         /* ===== CONTACT ===== */
-        .contact {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 4rem 2rem 5rem;
-            border-top: 1px solid rgba(212, 168, 67, 0.1);
-            text-align: center;
+        .contact { padding-top: 24px; padding-bottom: 88px; }
+
+        .contact-card {
+            position: relative; overflow: hidden;
+            display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap;
+            padding: 48px;
+            border-radius: 32px;
+            background: linear-gradient(120deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--accent-2)));
+            color: #fff;
         }
 
-        .contact h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--card-white);
-            margin-bottom: 1rem;
+        .contact-card::after {
+            content: ''; position: absolute; right: -80px; top: -80px; width: 280px; height: 280px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .contact p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-        }
+        .contact-card h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 8px; }
+        .contact-card p { opacity: .85; max-width: 440px; }
 
-        .contact-email {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 168, 67, 0.15);
-            padding: 1rem 2rem;
-            border-radius: 14px;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        .mail-btn {
+            position: relative; z-index: 1;
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 26px; border-radius: 999px;
+            background: #fff; color: #17151c; font-weight: 700; text-decoration: none;
+            transition: transform .2s;
         }
-
-        .contact-email:hover {
-            border-color: var(--accent-gold);
-            background: rgba(212, 168, 67, 0.05);
-        }
-
-        .contact-email svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--accent-gold);
-        }
-
-        .contact-email span {
-            color: var(--accent-gold);
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
+        .mail-btn:hover { transform: translateY(-2px); }
+        .mail-btn svg { width: 18px; height: 18px; }
 
         /* ===== ABOUT ===== */
-        .about {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 3rem 2rem 4rem;
-            border-top: 1px solid rgba(212, 168, 67, 0.1);
-        }
-
-        .about h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--card-white);
-            margin-bottom: 1rem;
-        }
-
-        .about p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.8;
-            max-width: 700px;
-        }
+        .about { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; padding-bottom: 88px; }
+        .about p { color: var(--muted); font-size: 1.05rem; }
 
         /* ===== FOOTER ===== */
-        footer {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem;
-            border-top: 1px solid rgba(212, 168, 67, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+        footer { border-top: 1px solid var(--line); padding: 28px 0 40px; }
+        .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 0.88rem; color: var(--muted); }
+        .foot nav { display: flex; gap: 20px; flex-wrap: wrap; }
+        .foot a { text-decoration: none; }
+        .foot a:hover { color: var(--ink); }
+
+        /* ===== MOTION ===== */
+        .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+        .reveal.in { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .m-icon { animation: none; }
+            .reveal { opacity: 1; transform: none; transition: none; }
         }
-
-        .footer-left { color: var(--text-dim); font-size: 0.85rem; }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .footer-links a {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover { color: var(--accent-gold); }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero { animation: fadeUp 0.7s ease forwards; }
-        .app-card:nth-child(1) { animation: fadeUp 0.6s 0.2s ease both; }
-        .app-card:nth-child(2) { animation: fadeUp 0.6s 0.35s ease both; }
-        .app-card:nth-child(3) { animation: fadeUp 0.6s 0.5s ease both; }
-        .app-card:nth-child(4) { animation: fadeUp 0.6s 0.65s ease both; }
-        .app-card:nth-child(5) { animation: fadeUp 0.6s 0.8s ease both; }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .mosaic { max-width: 420px; transform: rotate(-2deg); }
+            .values { grid-template-columns: 1fr; }
+            .about { grid-template-columns: 1fr; gap: 12px; }
+        }
+
+        @media (max-width: 720px) {
+            .wrap { padding: 0 16px; }
+            .menu-btn { display: grid; }
             .nav-links {
                 display: none;
-                position: absolute;
-                top: 64px;
-                left: 0;
-                right: 0;
-                background: var(--nav-bg);
-                border-bottom: 1px solid rgba(212, 168, 67, 0.1);
-                flex-direction: column;
-                padding: 1rem 2rem 1.5rem;
-                gap: 0.25rem;
+                position: absolute; top: 68px; left: 0; right: 0;
+                flex-direction: column; align-items: stretch; gap: 2px;
+                padding: 12px 16px 16px;
+                background: var(--bg); border-bottom: 1px solid var(--line);
             }
-
             .nav-links.open { display: flex; }
-
-            .nav-links a {
-                padding: 0.75rem 1rem;
-                width: 100%;
-            }
-
-            .nav-toggle { display: block; }
-
-            .hero { padding: 4rem 1.5rem 2rem; }
-            .hero h1 { font-size: 2.2rem; }
-            .apps-section { padding: 0 1.5rem 3rem; }
-            .apps-grid { grid-template-columns: 1fr; }
+            .nav-links a { padding: 12px 14px; border-radius: 12px; }
+            .hero { padding: 40px 0; }
+            .mosaic { gap: 12px; padding: 18px; }
+            .grid { grid-template-columns: 1fr; }
+            .controls, .chips { width: 100%; }
+            .chip { flex: 1; padding: 8px 10px; }
+            .search, .search input { width: 100%; }
+            .contact-card { padding: 32px 24px; }
         }
     </style>
 </head>
 <body>
-<div class="page">
 
     <!-- Navbar -->
-    <nav>
-        <div class="nav-inner">
-            <a href="#home" class="nav-logo">Kaal</a>
+    <header class="nav">
+        <div class="wrap nav-inner">
+            <a href="#home" class="brand"><span class="brand-mark">K</span>Kaal</a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#games">Games</a></li>
                 <li><a href="#apps">Apps</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-                <li><a href="https://sites.google.com/view/cardgamemindikaal/home" target="_blank">Privacy Policy</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="privacy%20policy.html">Privacy Policy</a></li>
             </ul>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav-actions">
+                <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                </button>
+                <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero -->
-    <section class="hero" id="home">
-        <h1>Games & Apps,<br><span>Crafted for Mobile.</span></h1>
-        <p>Kaal brings classic card games, brain-teasing puzzles, and smart productivity tools to your Android device — beautifully designed and free to use.</p>
-        <a href="#games" class="hero-cta">
-            <svg viewBox="0 0 16 16"><path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/></svg>
-            Explore All
-        </a>
-    </section>
-
-    <div class="divider"><span class="divider-icon">&#9824; &#9829; &#9827; &#9830;</span></div>
-
-    <!-- Games Section -->
-    <section class="apps-section" id="games">
-        <h2 class="section-label">Games</h2>
-        <p class="section-sub">Classic card games and puzzles — offline, polished, and free.</p>
-        <div class="apps-grid">
-
-            <!-- APP CARD — Mindi -->
-            <div class="app-card" data-theme="mindi">
-                <div class="app-card-visual">
-                    <span class="floating-suit">&#9824;</span>
-                    <span class="floating-suit">&#9829;</span>
-                    <span class="floating-suit">&#9827;</span>
-                    <span class="floating-suit">&#9830;</span>
-                </div>
-                <div class="app-card-body">
-                    <span class="app-card-badge">Android</span>
-                    <h3>Mindi Game Offline</h3>
-                    <div class="app-card-origin">Classic Indian Card Game</div>
-                    <p>The beloved Indian trick-taking card game, now on your phone. Play against smart AI opponents with multiple deck and trump variations — no internet needed.</p>
-                    <div class="app-tags">
-                        <span class="app-tag">Offline</span>
-                        <span class="app-tag">Card Game</span>
-                        <span class="app-tag">AI Opponents</span>
+    <main>
+        <!-- Hero -->
+        <section class="hero" id="home">
+            <div class="wrap hero-grid">
+                <div>
+                    <span class="eyebrow"><b>12</b> games &amp; apps on Google Play</span>
+                    <h1>Small apps.<br><em>Made to be enjoyed.</em></h1>
+                    <p class="hero-lead">Kaal makes card games, party games, puzzles and everyday tools for Android. They're free, they work offline, and they respect your privacy.</p>
+                    <div class="hero-ctas">
+                        <a href="#games" class="btn btn-primary">Browse all 12
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                        </a>
+                        <a href="https://play.google.com/store/apps/dev?id=8241238495743874285" target="_blank" rel="noopener" class="btn btn-ghost">See us on Google Play</a>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.kaal.mindi" target="_blank" class="play-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                        Google Play
-                    </a>
+                    <div class="stats">
+                        <div class="stat"><strong>7</strong><span>Games</span></div>
+                        <div class="stat"><strong>5</strong><span>Apps</span></div>
+                        <div class="stat"><strong>Free</strong><span>No sign-up needed</span></div>
+                    </div>
+                </div>
+                <div class="mosaic" aria-hidden="true"><div class="m-icon" style="--h:150;--i:0"><span aria-hidden="true">♠</span><img src="https://play-lh.googleusercontent.com/IEJiQPsSnBZH5lM6rF9o4e-luajBCPXAGsLlkEOJJDzySyZtZxYmUKzBm5kn-e1An_F6P7zvzjaTIINSSpagTw=w128-h128" alt="" loading="lazy" onerror="this.remove()"></div><div class="m-icon" style="--h:0;--i:1"><span aria-hidden="true">🃏</span><img src="https://play-lh.googleusercontent.com/iLnI5u8ondhgAFesItgCdtkp6iS_Qw9uzv6VEEQIIqf_IXeOQMq12butSXBH_OglBNyXHL2EjLfr8a57q-sZoME=w128-h128" alt="" loading="lazy" onerror="this.remove()"></div><div class="m-icon" style="--h:95;--i:2"><span aria-hidden="true">♣</span><img src="https://play-lh.googleusercontent.com/MlJN6I1ua5ZZRHcLPMLbtackUI2kGgQcBi05X-goUT4s9gFZiUjn2CM3TF9b8-WiXY8bKL3tXwzAHGsH_4Qckg=w128-h128" alt="" loading="lazy" onerror="this.remove()"></div><div class="m-icon" style="--h:175;--i:3"><span aria-hidden="true">♥</span><img src="https://play-lh.googleusercontent.com/U5Vq7SHNxXM14iPjkw6FLwQUuiQS2oJRC4EeeFfMcKwLDWrC_mbPNo8AMrrRmeiYeB49zO63NIZS4M0Gbt8IIQ=w128-h128" alt="" loading="lazy" onerror="this.remove()"></div><div class="m-icon" style="--h:300;--i:4"><span aria-hidden="true">🕵️</span><img src="https://play-lh.googleusercontent.com/lnMb-z253GR5oCD8PypuhbGGk-HUh7jof-nxT0CLVl9JDKkqcyeOGhF3-QDk4QRgjPcYYr1AJKgVXkSwluBZoJQ=w128-h128" alt="" loading="lazy" onerror="this.remove()"></div><div class="m-icon" style="--h:250;--i:5"><span aria-hidden="true">➜</span><img src="https://play-lh.googleusercontent.com/1y1Bm-o8CH8sH4SfcdAgbZBUZppVCGzy652xW9RxQ1LN4kGkuedFb6kpK5ncnMlYu94OpO-Gjnj04DyqzTcm=w128-h128" alt="" loading="lazy" onerror="this.remove()"></div><div class="m-icon" style="--h:205;--i:6"><span aria-hidden="true">🤖</span><img src="https://play-lh.googleusercontent.com/x2FdF14nAL9vb7qkQV2rpmIv_gJdFVY-yoRQIiMBP8t5RID39lIzTqLJLrFnArbFx4CW1xGCN5F-i1rhTjfl7w=w128-h128" alt="" loading="lazy" onerror="this.remove()"></div><div class="m-icon" style="--h:215;--i:7"><span aria-hidden="true">📄</span><img src="https://play-lh.googleusercontent.com/ncDCeSW0qkwF549gGnHE22CK0k3Vm_dpdE2lz5FLqeinG3BodfHlmBuBJ5UejtZCTBLRwQvaz6VJqOhjwkJEHQ=w128-h128" alt="" loading="lazy" onerror="this.remove()"></div><div class="m-icon" style="--h:35;--i:8"><span aria-hidden="true">₹</span><img src="https://play-lh.googleusercontent.com/9xjf8Gji-90NKcbqajYBNF5RLtgOITU2On1DBBePXXgeUludZIhOYmeb5EBohOPud1us4Jef7W0IHqK5WL9reQ=w128-h128" alt="" loading="lazy" onerror="this.remove()"></div></div>
+            </div>
+        </section>
+
+        <!-- Values -->
+        <section class="wrap values">
+            <div class="value reveal">
+                <div class="value-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l22 22M16.7 11.1A10.9 10.9 0 0 1 19 12.5M5 12.5a10.9 10.9 0 0 1 5.2-2.9M10.7 5A16 16 0 0 1 22.6 9M1.4 9a16 16 0 0 1 4.3-2.7M8.5 16.1a6 6 0 0 1 7 0M12 20h.01"/></svg></div>
+                <div><h3>Works offline</h3><p>Play and work anywhere. No connection needed.</p></div>
+            </div>
+            <div class="value reveal">
+                <div class="value-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <div><h3>Privacy first</h3><p>No accounts. Your data stays on your phone.</p></div>
+            </div>
+            <div class="value reveal">
+                <div class="value-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+                <div><h3>Free to use</h3><p>Every game and app is free to download.</p></div>
+            </div>
+        </section>
+
+        <!-- Catalog -->
+        <section class="wrap" id="catalog">
+            <div class="catalog-head">
+                <div>
+                    <h2 class="section-title">Everything we've made</h2>
+                    <p class="section-sub">Tap any app to get it on Google Play.</p>
+                </div>
+                <div class="controls">
+                    <div class="chips" role="group" aria-label="Filter">
+                        <button class="chip" data-filter="all" aria-pressed="true">All<span class="count">12</span></button>
+                        <button class="chip" data-filter="games" aria-pressed="false">Games<span class="count">7</span></button>
+                        <button class="chip" data-filter="apps" aria-pressed="false">Apps<span class="count">5</span></button>
+                    </div>
+                    <label class="search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                        <input type="search" id="search" placeholder="Search apps" aria-label="Search apps">
+                    </label>
                 </div>
             </div>
 
-            <!-- APP CARD — Scopa -->
-            <div class="app-card" data-theme="scopa">
-                <div class="app-card-visual">
-                    <span class="floating-suit">&#129689;</span>
-                    <span class="floating-suit">&#9876;&#65039;</span>
-                    <span class="floating-suit">&#127942;</span>
-                    <span class="floating-suit">&#127183;</span>
-                </div>
-                <div class="app-card-body">
-                    <span class="app-card-badge">Android</span>
-                    <h3>Scopa Master</h3>
-                    <div class="app-card-origin">Classic Italian Card Game</div>
-                    <p>The classic Italian card game with smart AI, daily rewards, custom themes, a lucky spinner, and fun mini games. Beautiful and easy to pick up.</p>
-                    <div class="app-tags">
-                        <span class="app-tag">Offline</span>
-                        <span class="app-tag">Card Game</span>
-                        <span class="app-tag">Italian Classic</span>
-                    </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.kaal.scopaking" target="_blank" class="play-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                        Google Play
-                    </a>
+            <div class="group" id="games" data-group="games">
+                <div class="group-label">Games</div>
+                <div class="grid">
+        <article class="card" data-cat="games" data-name="mindi card">
+          <div class="card-top">
+            <div class="icon" style="--h:150">
+              <span class="icon-fallback" aria-hidden="true">♠</span>
+              <img src="https://play-lh.googleusercontent.com/IEJiQPsSnBZH5lM6rF9o4e-luajBCPXAGsLlkEOJJDzySyZtZxYmUKzBm5kn-e1An_F6P7zvzjaTIINSSpagTw=w192-h192" alt="Mindi icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>Mindi</h3>
+              <p class="sub">Classic Indian card game</p>
+              <span class="genre">Card</span>
+            </div>
+          </div>
+          <p class="desc">The beloved Indian trick-taking game. Play smart AI opponents with multiple deck and trump variations, no internet needed.</p>
+          <ul class="tags"><li>Offline</li><li>AI opponents</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.mindi" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="games" data-name="scopa card">
+          <div class="card-top">
+            <div class="icon" style="--h:0">
+              <span class="icon-fallback" aria-hidden="true">🃏</span>
+              <img src="https://play-lh.googleusercontent.com/iLnI5u8ondhgAFesItgCdtkp6iS_Qw9uzv6VEEQIIqf_IXeOQMq12butSXBH_OglBNyXHL2EjLfr8a57q-sZoME=w192-h192" alt="Scopa icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>Scopa</h3>
+              <p class="sub">Classic Italian card game</p>
+              <span class="genre">Card</span>
+            </div>
+          </div>
+          <p class="desc">The Italian classic with smart AI, daily rewards, custom themes, a lucky spinner and fun mini games.</p>
+          <ul class="tags"><li>Offline</li><li>Daily rewards</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.scopaking" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="games" data-name="callbreak card">
+          <div class="card-top">
+            <div class="icon" style="--h:95">
+              <span class="icon-fallback" aria-hidden="true">♣</span>
+              <img src="https://play-lh.googleusercontent.com/MlJN6I1ua5ZZRHcLPMLbtackUI2kGgQcBi05X-goUT4s9gFZiUjn2CM3TF9b8-WiXY8bKL3tXwzAHGsH_4Qckg=w192-h192" alt="Callbreak icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>Callbreak</h3>
+              <p class="sub">Bid, trick, win</p>
+              <span class="genre">Card</span>
+            </div>
+          </div>
+          <p class="desc">The classic bidding card game, fully offline. Classic, Blind Bid and Super 8 Bid modes against smart opponents.</p>
+          <ul class="tags"><li>Offline</li><li>3 modes</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.callbreak" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="games" data-name="solitaire &amp; cards casino">
+          <div class="card-top">
+            <div class="icon" style="--h:175">
+              <span class="icon-fallback" aria-hidden="true">♥</span>
+              <img src="https://play-lh.googleusercontent.com/U5Vq7SHNxXM14iPjkw6FLwQUuiQS2oJRC4EeeFfMcKwLDWrC_mbPNo8AMrrRmeiYeB49zO63NIZS4M0Gbt8IIQ=w192-h192" alt="Solitaire &amp; Cards icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>Solitaire &amp; Cards</h3>
+              <p class="sub">Five classics in one</p>
+              <span class="genre">Casino</span>
+            </div>
+          </div>
+          <p class="desc">Klondike, Spider, FreeCell, Pyramid and TriPeaks with winnable deals, unlimited undo, hints and a daily challenge.</p>
+          <ul class="tags"><li>Offline</li><li>Daily challenge</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.solitaire" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="games" data-name="imposter party">
+          <div class="card-top">
+            <div class="icon" style="--h:300">
+              <span class="icon-fallback" aria-hidden="true">🕵️</span>
+              <img src="https://play-lh.googleusercontent.com/lnMb-z253GR5oCD8PypuhbGGk-HUh7jof-nxT0CLVl9JDKkqcyeOGhF3-QDk4QRgjPcYYr1AJKgVXkSwluBZoJQ=w192-h192" alt="Imposter icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>Imposter</h3>
+              <p class="sub">Word party game</p>
+              <span class="genre">Party</span>
+            </div>
+          </div>
+          <p class="desc">Everyone knows the secret word except the imposter. For 3 to 20 players, with 40 categories and five game modes.</p>
+          <ul class="tags"><li>Party</li><li>3–20 players</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.wordimposter" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="games" data-name="arrow puzzle puzzle">
+          <div class="card-top">
+            <div class="icon" style="--h:250">
+              <span class="icon-fallback" aria-hidden="true">➜</span>
+              <img src="https://play-lh.googleusercontent.com/1y1Bm-o8CH8sH4SfcdAgbZBUZppVCGzy652xW9RxQ1LN4kGkuedFb6kpK5ncnMlYu94OpO-Gjnj04DyqzTcm=w192-h192" alt="Arrow Puzzle icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>Arrow Puzzle</h3>
+              <p class="sub">Creation and AI</p>
+              <span class="genre">Puzzle</span>
+            </div>
+          </div>
+          <p class="desc">A brain-teasing puzzle where you clear arrows to solve creative challenges, with clever AI-generated levels.</p>
+          <ul class="tags"><li>Puzzle</li><li>AI levels</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.arrowgame" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="games" data-name="logibot educational">
+          <div class="card-top">
+            <div class="icon" style="--h:205">
+              <span class="icon-fallback" aria-hidden="true">🤖</span>
+              <img src="https://play-lh.googleusercontent.com/x2FdF14nAL9vb7qkQV2rpmIv_gJdFVY-yoRQIiMBP8t5RID39lIzTqLJLrFnArbFx4CW1xGCN5F-i1rhTjfl7w=w192-h192" alt="LogiBot icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>LogiBot</h3>
+              <p class="sub">Learn coding puzzles</p>
+              <span class="genre">Educational</span>
+            </div>
+          </div>
+          <p class="desc">Guide a friendly robot through 716 puzzles with drag-and-drop blocks like MOVE, LOOP and IF. Real logic, no typing.</p>
+          <ul class="tags"><li>Kids &amp; learners</li><li>Offline</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.logibot" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
                 </div>
             </div>
 
-            <!-- APP CARD — Arrow Puzzle -->
-            <div class="app-card" data-theme="arrow">
-                <div class="app-card-visual">
-                    <span class="floating-suit">&#10132;</span>
-                    <span class="floating-suit">&#129504;</span>
-                    <span class="floating-suit">&#10024;</span>
-                    <span class="floating-suit">&#127922;</span>
-                </div>
-                <div class="app-card-body">
-                    <span class="app-card-badge">Android</span>
-                    <h3>Arrow Puzzle</h3>
-                    <div class="app-card-origin">Creation and AI</div>
-                    <p>A brain-teasing puzzle game where you align arrows to solve creative challenges. Powered by clever AI-generated levels for endless replayability.</p>
-                    <div class="app-tags">
-                        <span class="app-tag">Puzzle</span>
-                        <span class="app-tag">Brain Teaser</span>
-                        <span class="app-tag">AI Levels</span>
-                    </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.kaal.arrowgame" target="_blank" class="play-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                        Google Play
-                    </a>
+            <div class="group" id="apps" data-group="apps">
+                <div class="group-label">Apps</div>
+                <div class="grid">
+        <article class="card" data-cat="apps" data-name="docsbox productivity">
+          <div class="card-top">
+            <div class="icon" style="--h:215">
+              <span class="icon-fallback" aria-hidden="true">📄</span>
+              <img src="https://play-lh.googleusercontent.com/ncDCeSW0qkwF549gGnHE22CK0k3Vm_dpdE2lz5FLqeinG3BodfHlmBuBJ5UejtZCTBLRwQvaz6VJqOhjwkJEHQ=w192-h192" alt="DocsBox icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>DocsBox</h3>
+              <p class="sub">PDF reader, editor &amp; scanner</p>
+              <span class="genre">Productivity</span>
+            </div>
+          </div>
+          <p class="desc">Read, edit, sign, merge, split, convert and compress PDFs offline, with a built-in document scanner.</p>
+          <ul class="tags"><li>PDF</li><li>Scanner</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.docsbox" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="apps" data-name="khata manager business">
+          <div class="card-top">
+            <div class="icon" style="--h:35">
+              <span class="icon-fallback" aria-hidden="true">₹</span>
+              <img src="https://play-lh.googleusercontent.com/9xjf8Gji-90NKcbqajYBNF5RLtgOITU2On1DBBePXXgeUludZIhOYmeb5EBohOPud1us4Jef7W0IHqK5WL9reQ=w192-h192" alt="Khata Manager icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>Khata Manager</h3>
+              <p class="sub">Digital khata for business</p>
+              <span class="genre">Business</span>
+            </div>
+          </div>
+          <p class="desc">Track what customers and suppliers owe, keep bill photos, share PDF statements and send reminders. Offline with Drive backup.</p>
+          <ul class="tags"><li>Ledger</li><li>Offline</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.khatamanager" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="apps" data-name="pro calculator tools">
+          <div class="card-top">
+            <div class="icon" style="--h:230">
+              <span class="icon-fallback" aria-hidden="true">🧮</span>
+              <img src="https://play-lh.googleusercontent.com/Yb7dhN_rgGKJJHdkPm9Pf9lC3prlDnNLoBkw3TA5KrZq6fE_jE01swEAu34mUNOHLLPwoWfb1SNrppWt-neuIA=w192-h192" alt="Pro Calculator icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>Pro Calculator</h3>
+              <p class="sub">41 offline calculators</p>
+              <span class="genre">Tools</span>
+            </div>
+          </div>
+          <p class="desc">Concrete, paint, tile, stairs, loan EMI, GST and percentages. See exactly how much material to buy and what it costs.</p>
+          <ul class="tags"><li>Construction</li><li>Finance</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.procalculator" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="apps" data-name="mind prof self-assessment">
+          <div class="card-top">
+            <div class="icon" style="--h:270">
+              <span class="icon-fallback" aria-hidden="true">🧠</span>
+              <img src="https://play-lh.googleusercontent.com/pf90vv5DucdbTTVek_0ihxIaBbuntWq-XKO8I76TB96GWTnNeqWZd9r3UJnUu54tHfvR_ug3dVZiEVe6YreThoQ=w192-h192" alt="Mind Prof icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>Mind Prof</h3>
+              <p class="sub">IQ, personality &amp; EQ tests</p>
+              <span class="genre">Self-assessment</span>
+            </div>
+          </div>
+          <p class="desc">IQ, Big Five and EQ self-assessments with full results free. Works offline, and your answers stay on your phone.</p>
+          <ul class="tags"><li>Privacy-first</li><li>Offline</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.kaal.mindprof" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
+        <article class="card" data-cat="apps" data-name="pdf converter productivity">
+          <div class="card-top">
+            <div class="icon" style="--h:20">
+              <span class="icon-fallback" aria-hidden="true">⇄</span>
+              <img src="https://play-lh.googleusercontent.com/Yckul066bMT3TRgBJz_-RpHzv7hOuVew0hdTqGZS574V4sZCKVwRovMnpwfCL5rPJU9w06nVf53scb4LKFDd=w192-h192" alt="PDF Converter icon" width="72" height="72" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="card-title">
+              <h3>PDF Converter</h3>
+              <p class="sub">PDF to Word &amp; more</p>
+              <span class="genre">Productivity</span>
+            </div>
+          </div>
+          <p class="desc">Convert PDF files to Word and other formats quickly, right on your phone.</p>
+          <ul class="tags"><li>Converter</li><li>Documents</li></ul>
+          <a class="play" href="https://play.google.com/store/apps/details?id=pdf.kaal" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg><span><small>GET IT ON</small>Google Play</span></a>
+        </article>
                 </div>
             </div>
 
-        </div>
-    </section>
+            <p class="empty" id="empty">No apps match your search.</p>
+        </section>
 
-    <div class="divider"><span class="divider-icon">&#128196; &#9998; &#128736;</span></div>
-
-    <!-- Apps Section -->
-    <section class="apps-section" id="apps">
-        <h2 class="section-label">Apps</h2>
-        <p class="section-sub">Productivity tools that get things done — simple and efficient.</p>
-        <div class="apps-grid">
-
-            <!-- APP CARD — DocsBox -->
-            <div class="app-card" data-theme="docsbox">
-                <div class="app-card-visual">
-                    <span class="floating-suit">&#128196;</span>
-                    <span class="floating-suit">&#128270;</span>
-                    <span class="floating-suit">&#9998;</span>
-                    <span class="floating-suit">&#128206;</span>
+        <!-- Contact -->
+        <section class="wrap contact" id="contact">
+            <div class="contact-card reveal">
+                <div>
+                    <h2>Say hello</h2>
+                    <p>Found a bug, have an idea, or just want to tell us what you think? We read every message.</p>
                 </div>
-                <div class="app-card-body">
-                    <span class="app-card-badge">Android</span>
-                    <h3>DocsBox</h3>
-                    <div class="app-card-origin">PDF Reader & Editor</div>
-                    <p>A lightweight PDF reader and editor with built-in document scanner. Open, annotate, and manage your PDF files on the go.</p>
-                    <div class="app-tags">
-                        <span class="app-tag">PDF Reader</span>
-                        <span class="app-tag">Editor</span>
-                        <span class="app-tag">Scanner</span>
-                    </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.kaal.docsbox" target="_blank" class="play-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                        Google Play
-                    </a>
-                </div>
+                <a href="mailto:help.kaal@gmail.com" class="mail-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 6L2 7"/></svg>
+                    help.kaal@gmail.com
+                </a>
             </div>
+        </section>
 
-            <!-- APP CARD — PDF Converter -->
-            <div class="app-card" data-theme="pdfconv">
-                <div class="app-card-visual">
-                    <span class="floating-suit">&#128462;</span>
-                    <span class="floating-suit">&#8594;</span>
-                    <span class="floating-suit">&#128195;</span>
-                    <span class="floating-suit">&#128260;</span>
-                </div>
-                <div class="app-card-body">
-                    <span class="app-card-badge">Android</span>
-                    <h3>PDF Converter</h3>
-                    <div class="app-card-origin">PDF to Word & More</div>
-                    <p>Convert PDF files to Word documents and other formats quickly and easily. Handle your document conversions right on your phone.</p>
-                    <div class="app-tags">
-                        <span class="app-tag">Converter</span>
-                        <span class="app-tag">PDF to Word</span>
-                        <span class="app-tag">Documents</span>
-                    </div>
-                    <a href="https://play.google.com/store/apps/details?id=pdf.kaal" target="_blank" class="play-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4l2.834 1.639a1 1 0 0 1 0 1.726l-2.834 1.64-2.635-2.637 2.635-2.369zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                        Google Play
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="contact" id="contact">
-        <h2>Contact Us</h2>
-        <p>Have a question, found a bug, or just want to say hello?<br>We'd love to hear from you.</p>
-        <a href="mailto:kaal.help@gmail.com" class="contact-email">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <span>kaal.help@gmail.com</span>
-        </a>
-    </section>
-
-    <!-- About -->
-    <section class="about">
-        <h2>About Kaal</h2>
-        <p>
-            Kaal is an independent Android developer focused on classic card games, engaging puzzles,
-            and useful productivity tools. We believe great apps should be simple, well-crafted, and
-            respectful of your time and device. Every game works fully offline, and every app is free to use.
-        </p>
-    </section>
+        <!-- About -->
+        <section class="wrap about reveal">
+            <h2 class="section-title">About Kaal</h2>
+            <p>Kaal Apps &amp; Games is an independent Android developer making classic card games, party games, puzzles and practical tools. We think good apps should be simple, well made, and respectful of your time, your device and your data.</p>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-left">&copy; 2026 Kaal Apps & Games. All rights reserved.</div>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#games">Games</a>
-            <a href="#apps">Apps</a>
-            <a href="#contact">Contact</a>
-            <a href="https://dharmik6kathrotiya.github.io/app/privacy%20policy" target="_blank">Privacy Policy</a>
+        <div class="wrap foot">
+            <div>&copy; <span id="year">2026</span> Kaal Apps &amp; Games. All rights reserved.</div>
+            <nav>
+                <a href="#games">Games</a>
+                <a href="#apps">Apps</a>
+                <a href="#contact">Contact</a>
+                <a href="privacy%20policy.html">Privacy Policy</a>
+            </nav>
         </div>
     </footer>
 
-</div>
-
 <script>
-    // Mobile menu toggle
-    var toggle = document.getElementById('navToggle');
-    var links = document.getElementById('navLinks');
-    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+    // Theme toggle (remembers choice when storage is available)
+    var root = document.documentElement;
+    try { var saved = localStorage.getItem('kaal-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+    document.getElementById('themeBtn').addEventListener('click', function () {
+        var current = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('kaal-theme', next); } catch (e) {}
+    });
 
-    // Close menu on link click (mobile)
-    var allLinks = links.querySelectorAll('a');
-    for (var i = 0; i < allLinks.length; i++) {
-        allLinks[i].addEventListener('click', function() { links.classList.remove('open'); });
+    // Mobile menu
+    var menuBtn = document.getElementById('menuBtn');
+    var links = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', function () {
+        var open = links.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', open);
+    });
+    links.addEventListener('click', function (e) { if (e.target.tagName === 'A') links.classList.remove('open'); });
+
+    // Filter + search
+    var chips = document.querySelectorAll('.chip');
+    var cards = document.querySelectorAll('.card');
+    var groups = document.querySelectorAll('.group');
+    var search = document.getElementById('search');
+    var empty = document.getElementById('empty');
+    var filter = 'all';
+
+    function apply() {
+        var q = search.value.trim().toLowerCase();
+        var shown = 0;
+        cards.forEach(function (c) {
+            var ok = (filter === 'all' || c.dataset.cat === filter) && (!q || c.dataset.name.indexOf(q) !== -1 || c.textContent.toLowerCase().indexOf(q) !== -1);
+            c.hidden = !ok;
+            if (ok) shown++;
+        });
+        groups.forEach(function (g) { g.hidden = !g.querySelector('.card:not([hidden])'); });
+        empty.classList.toggle('show', shown === 0);
     }
 
-    // Active nav link on scroll
-    var sections = document.querySelectorAll('section[id]');
-    var navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
-
-    window.addEventListener('scroll', function() {
-        var current = '';
-        for (var j = 0; j < sections.length; j++) {
-            if (window.scrollY >= sections[j].offsetTop - 100) {
-                current = sections[j].getAttribute('id');
-            }
-        }
-        for (var k = 0; k < navAnchors.length; k++) {
-            navAnchors[k].classList.remove('active');
-            if (navAnchors[k].getAttribute('href') === '#' + current) {
-                navAnchors[k].classList.add('active');
-            }
-        }
+    chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+            filter = chip.dataset.filter;
+            chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip); });
+            apply();
+        });
     });
+    search.addEventListener('input', apply);
+
+    // Active nav link on scroll
+    var sections = document.querySelectorAll('#home, #games, #apps, #contact');
+    var navA = links.querySelectorAll('a[href^="#"]');
+    window.addEventListener('scroll', function () {
+        var current = 'home';
+        sections.forEach(function (s) { if (!s.hidden && window.scrollY >= s.offsetTop - 120) current = s.id; });
+        navA.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+    }, { passive: true });
+
+    // Reveal on scroll
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    } else {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
